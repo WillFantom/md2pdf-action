@@ -1,0 +1,34 @@
+name: "md2pdf"
+author: "Will Fantom"
+description: "Convert markdown files to PDFs"
+inputs:
+  baseDir:
+    description: "The directory in the repository to be used as a base for local links"
+    required: false
+    default: "."
+  markdownSrcPattern:
+    description: "The path/pattern of the mardown file(s) to convert"
+    required: false
+    default: "**.md"
+  cssFilePattern:
+    description: "The path/pattern to a CSS file to use in the conversion"
+    required: false
+    default: "**.css"
+  markdownExtras:
+    description: "Extra parsing options for the markdown2 package"
+    required: false
+outputs:
+  convertedFiles:
+    description: "A comma-separated list of successfully converted files"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - "${{ inputs.markdownSrcPattern }}"
+    - "--base-dir"
+    - "${{ inputs.baseDir }}"
+    - "--css-pattern"
+    - "${{ inputs.cssFilePattern }}"
+    - "--markdown2-extras"
+    - "${{ inputs.markdownExtras }}"
+    - "--gh-actions"
