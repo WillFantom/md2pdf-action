@@ -10,19 +10,14 @@ RUN apk add --no-cache --virtual .build-deps \
   zlib-dev && \
   apk add --no-cache \
   cairo-dev \
-  font-noto-emoji \
-  terminus-font ttf-inconsolata ttf-dejavu font-noto ttf-font-awesome font-noto-extra \
+  font-noto-all font-noto-emoji \
   gdk-pixbuf-dev \ 
   pango-dev  && \
-  pip install markdown2 pygments weasyprint && \
-  apk del .build-deps
+  pip install markdown2 pygments weasyprint
 
-RUN wget https://github.com/google/fonts/archive/main.tar.gz -O google-fonts.tar.gz && \
-  tar -xf google-fonts.tar.gz && \
-  rm -f google-fonts.tar.gz && \
-  mkdir -p /usr/share/fonts/truetype/google-fonts && \
-  find $PWD/fonts-main/ -name "*.ttf" -exec install -m644 {} /usr/share/fonts/truetype/google-fonts/ \;  && \
-  fc-cache -f && rm -rf /var/cache/*
+RUN apk del .build-deps && \
+  fc-cache -fv && \
+  rm -rf /var/cache/*
 
 COPY entrypoint.py /app/entrypoint.py
 
