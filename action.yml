@@ -22,7 +22,7 @@ outputs:
     description: "A comma-separated list of successfully converted files"
 runs:
   using: "docker"
-  image: "Dockerfile"
+  image: docker://ghcr.io/willfantom/md2pdf-action:2
   args:
     - "${{ inputs.markdownSrcPattern }}"
     - "--base-dir"
