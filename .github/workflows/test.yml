@@ -1,4 +1,7 @@
-on: [push]
+on:
+  push:
+    branches:
+      - "main"
 
 jobs:
   test-conversion:
@@ -6,9 +9,9 @@ jobs:
     name: Convert README to PDF
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Convert README
-        uses: willfantom/md2pdf-action@v1
+        uses: willfantom/md2pdf-action@main
         id: md2pdf
         with:
           markdownSrcPattern: "README.md"
